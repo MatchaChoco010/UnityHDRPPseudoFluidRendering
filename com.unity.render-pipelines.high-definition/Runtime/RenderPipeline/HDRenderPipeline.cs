@@ -283,7 +283,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline {
 
             m_ApplyDistortionMaterial = CoreUtils.CreateEngineMaterial (asset.renderPipelineResources.shaders.applyDistortionPS);
 
-            m_MyMaterial = new Material (Shader.Find ("HDRP/MyPass"));
+            m_MyMaterial = CoreUtils.CreateEngineMaterial (Shader.Find ("HDRP/MyPass"));
 
             InitializeDebugMaterials ();
             XRDebugMenu.Reset ();
