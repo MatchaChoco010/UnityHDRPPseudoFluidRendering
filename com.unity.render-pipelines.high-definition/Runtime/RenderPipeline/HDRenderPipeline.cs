@@ -283,7 +283,8 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline {
 
             m_ApplyDistortionMaterial = CoreUtils.CreateEngineMaterial (asset.renderPipelineResources.shaders.applyDistortionPS);
 
-            m_MyMaterial = CoreUtils.CreateEngineMaterial (Shader.Find ("HDRP/MyPass"));
+            // m_MyMaterial = CoreUtils.CreateEngineMaterial (Shader.Find ("HDRP/MyPass"));
+            m_MyMaterial = asset.myPassMaterial;
 
             InitializeDebugMaterials ();
             XRDebugMenu.Reset ();
@@ -2459,6 +2460,11 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline {
         void RenderMyPass (CullingResults cull, HDCamera hdCamera, ScriptableRenderContext renderContext, CommandBuffer cmd) {
             if (hdCamera.frameSettings.litShaderMode != LitShaderMode.Deferred)
                 return;
+
+            if (m_MyMaterial == null) {
+                Debug.LogError ("HDRenderPipelineAsset>My Pass Material is required");
+                return;
+            }
 
             using (new ProfilingSample (cmd, m_CurrentDebugDisplaySettings.IsDebugDisplayEnabled () ? "MyPass Debug" : "MyPass", CustomSamplerId.GBuffer.GetSampler ())) {
 
